@@ -47,13 +47,13 @@ public class CommandMorpheus extends CommandBase {
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] astring) {
+    public void processCommand(ICommandSender sender, String[] args) {
 
-        if (astring.length == 0) {
+        if (args.length == 0) {
             sender.addChatMessage(new ChatComponentText(References.USAGE));
             return;
         }
-        if (astring[0].equalsIgnoreCase("alert")) {
+        if (args[0].equalsIgnoreCase("alert")) {
             if (Morpheus.isAlertEnabled()) {
                 Morpheus.setAlertPlayers(false);
                 sender.addChatMessage(new ChatComponentText(References.ALERTS_OFF));
@@ -61,9 +61,9 @@ public class CommandMorpheus extends CommandBase {
                 Morpheus.setAlertPlayers(true);
                 sender.addChatMessage(new ChatComponentText(References.ALERTS_ON));
             }
-        } else if (astring[0].equalsIgnoreCase("disable")) {
-            if (astring[1] != null) {
-                int ageToDisable = parseInt(sender, astring[1]);
+        } else if (args[0].equalsIgnoreCase("disable")) {
+            if (args[1] != null) {
+                int ageToDisable = parseInt(sender, args[1]);
                 if (MorpheusRegistry.registry.containsKey(ageToDisable)) {
                     Morpheus.register.unregisterHandler(ageToDisable);
                     sender.addChatMessage(new ChatComponentText("Sleep voting has been disabled in dimension " + ageToDisable));
@@ -73,7 +73,7 @@ public class CommandMorpheus extends CommandBase {
             } else {
                 sender.addChatMessage(new ChatComponentText(References.DISABLE_USAGE));
             }
-        } else if (astring[0].equalsIgnoreCase("status")) {
+        } else if (args[0].equalsIgnoreCase("status")) {
             for (WorldServer server : MinecraftServer.getServer().worldServers) {
                 if (Morpheus.register.isDimRegistered(server.provider.dimensionId)) {
                     sender.addChatMessage(new ChatComponentText("Dim " + server.provider.dimensionId + ": " + EnumChatFormatting.GREEN + "ENABLED" + EnumChatFormatting.RESET));
@@ -90,11 +90,11 @@ public class CommandMorpheus extends CommandBase {
                 sender.addChatMessage(new ChatComponentText("Players below y" + Morpheus.groundLevel + " are considered to be mining"));
             }
         }
-        else if (astring[0].equalsIgnoreCase("version")) {
+        else if (args[0].equalsIgnoreCase("version")) {
             sender.addChatMessage(new ChatComponentText("Morpheus version: " + References.VERSION));
-        } else if (astring[0].equalsIgnoreCase("percent")) {
-            if (astring[1] != null) {
-                int newPercent = parseInt(sender, astring[1]);
+        } else if (args[0].equalsIgnoreCase("percent")) {
+            if (args[1] != null) {
+                int newPercent = parseInt(sender, args[1]);
                 if (newPercent > 0 && newPercent <= 100) {
                     Morpheus.perc = newPercent;
                     Morpheus.config.get("settings", "SleeperPerc", 50).set(newPercent);
