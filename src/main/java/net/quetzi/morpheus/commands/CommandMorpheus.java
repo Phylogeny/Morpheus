@@ -48,7 +48,7 @@ public class CommandMorpheus extends CommandBase
     {
         if (args.length == 0)
         {
-            sender.addChatMessage(new TextComponentString(References.USAGE));
+        	sender.addChatMessage(new TextComponentString("Usage: " + References.USAGE).setStyle(new Style().setColor(TextFormatting.RED)));
             return;
         }
         if (args[0].equalsIgnoreCase("alert"))
