@@ -65,54 +65,58 @@ public class CommandMorpheus extends CommandBase
                 sender.addChatMessage(new TextComponentString(References.ALERTS_ON));
             }
         }
-        else if (args[0].equalsIgnoreCase("disable"))
-        {
-        	if (args.length > 1)
-            {
-                int ageToDisable = parseInt(args[1]);
-                if (Morpheus.register.isDimRegistered(ageToDisable))
-                {
-                    Morpheus.register.unregisterHandler(ageToDisable);
-                    sender.addChatMessage(new TextComponentString("Disabled sleep vote checks in dimension " + ageToDisable));
-                }
-                else
-                {
-                    sender.addChatMessage(new TextComponentString("Sleep vote checks are already disabled in dimension " + ageToDisable));
-                }
-            }
-            else
-            {
-                sender.addChatMessage(new TextComponentString(References.DISABLE_USAGE).setStyle(new Style().setColor(TextFormatting.RED)));
-            }
-        }
         else if (args[0].equalsIgnoreCase("version"))
         {
             sender.addChatMessage(new TextComponentString("Morpheus version: " + References.VERSION));
         }
-        else if (args[0].equalsIgnoreCase("percent"))
+        else
         {
-            if (args.length > 1)
+            boolean setPercent = args[0].equalsIgnoreCase("percent");
+            if (setPercent || args[0].equalsIgnoreCase("disable"))
             {
-                // Do op check
-                if (isPlayerOpped(sender))
+                if (args.length > 1)
                 {
-                    int newPercent = parseInt(args[1]);
-                    if (newPercent > 0 && newPercent <= 100)
+                    // Do op check
+                    if (isPlayerOpped(sender))
                     {
-                        Morpheus.perc = newPercent;
-                        Morpheus.config.get("settings", "SleeperPerc", 50).set(newPercent);
-                        Morpheus.config.save();
-                        sender.addChatMessage(new TextComponentString("Sleep vote percentage set to " + Morpheus.perc + "%"));
+                        if (setPercent)
+                        {
+                            int newPercent = parseInt(args[1]);
+                            if (newPercent > 0 && newPercent <= 100)
+                            {
+                                Morpheus.perc = newPercent;
+                                Morpheus.config.get("settings", "SleeperPerc", 50).set(newPercent);
+                                Morpheus.config.save();
+                                sender.addChatMessage(new TextComponentString("Sleep vote percentage set to " + Morpheus.perc + "%"));
+                            }
+                            else
+                            {
+                                sender.addChatMessage(new TextComponentString("Invalid percentage value, round numbers between 0 and 100 are acceptable."));
+                            }
+                        }
+                        else
+                        {
+                            int ageToDisable = parseInt(args[1]);
+                            if (Morpheus.register.isDimRegistered(ageToDisable))
+                            {
+                                Morpheus.register.unregisterHandler(ageToDisable);
+                                sender.addChatMessage(new TextComponentString("Disabled sleep vote checks in dimension " + ageToDisable));
+                            }
+                            else
+                            {
+                                sender.addChatMessage(new TextComponentString("Sleep vote checks are already disabled in dimension " + ageToDisable));
+                            }
+                        }
                     }
                     else
                     {
-                        sender.addChatMessage(new TextComponentString("Invalid percentage value, round numbers between 0 and 100 are acceptable."));
+                        sender.addChatMessage(new TextComponentString("You must be opped to " + (setPercent ? "set the sleep vote percentage." : "disable dimensions.")));
                     }
                 }
-            }
-            else
-            {
-                sender.addChatMessage(new TextComponentString(References.PERCENT_USAGE).setStyle(new Style().setColor(TextFormatting.RED)));
+                else
+                {
+                    sender.addChatMessage(new TextComponentString(setPercent ? References.PERCENT_USAGE : References.DISABLE_USAGE).setStyle(new Style().setColor(TextFormatting.RED)));
+                }
             }
         }
     }
