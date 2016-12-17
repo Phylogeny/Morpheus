@@ -46,7 +46,7 @@ public class CommandMorpheus extends CommandBase {
     public void processCommand(ICommandSender sender, String[] args) throws NumberInvalidException {
 
         if (args.length == 0) {
-            sender.addChatMessage(new ChatComponentText(References.USAGE));
+        	sender.addChatMessage(new ChatComponentText("Usage: " + References.USAGE).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
             return;
         }
         if (args[0].equalsIgnoreCase("alert")) {
