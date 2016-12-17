@@ -108,16 +108,4 @@ public class CommandMorpheus extends CommandBase {
         }
         return null;
     }
-
-    @Override
-    public boolean isUsernameIndex(String[] astring, int i) {
-
-        return false;
-    }
-
-    @Override
-    public int getRequiredPermissionLevel() {
-
-        return 4;
-    }
 }
