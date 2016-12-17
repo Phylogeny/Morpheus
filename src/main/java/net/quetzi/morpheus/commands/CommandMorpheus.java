@@ -41,13 +41,13 @@ public class CommandMorpheus extends CommandBase {
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] astring) throws NumberInvalidException {
+    public void processCommand(ICommandSender sender, String[] args) throws NumberInvalidException {
 
-        if (astring.length == 0) {
+        if (args.length == 0) {
             sender.addChatMessage(new ChatComponentText(References.USAGE));
             return;
         }
-        if (astring[0].equalsIgnoreCase("alert")) {
+        if (args[0].equalsIgnoreCase("alert")) {
             if (Morpheus.isAlertEnabled()) {
                 Morpheus.setAlertPlayers(false);
                 sender.addChatMessage(new ChatComponentText(References.ALERTS_OFF));
@@ -55,9 +55,9 @@ public class CommandMorpheus extends CommandBase {
                 Morpheus.setAlertPlayers(true);
                 sender.addChatMessage(new ChatComponentText(References.ALERTS_ON));
             }
-        } else if (astring[0].equalsIgnoreCase("disable")) {
-            if (astring[1] != null) {
-                int ageToDisable = parseInt(astring[1]);
+        } else if (args[0].equalsIgnoreCase("disable")) {
+            if (args[1] != null) {
+                int ageToDisable = parseInt(args[1]);
                 if (Morpheus.register.isDimRegistered(ageToDisable)) {
                     Morpheus.register.unregisterHandler(ageToDisable);
                     sender.addChatMessage(new ChatComponentText("Disabled sleep vote checks in dimension " + ageToDisable));
@@ -67,11 +67,11 @@ public class CommandMorpheus extends CommandBase {
             } else {
                 sender.addChatMessage(new ChatComponentText(References.DISABLE_USAGE));
             }
-        } else if (astring[0].equalsIgnoreCase("version")) {
+        } else if (args[0].equalsIgnoreCase("version")) {
             sender.addChatMessage(new ChatComponentText("Morpheus version: " + References.VERSION));
-        } else if (astring[0].equalsIgnoreCase("percent")) {
-            if (astring[1] != null) {
-                int newPercent = parseInt(astring[1]);
+        } else if (args[0].equalsIgnoreCase("percent")) {
+            if (args[1] != null) {
+                int newPercent = parseInt(args[1]);
                 if (newPercent > 0 && newPercent <= 100) {
                     Morpheus.perc = newPercent;
                     Morpheus.config.get("settings", "SleeperPerc", 50).set(newPercent);
