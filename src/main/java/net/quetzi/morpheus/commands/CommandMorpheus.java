@@ -114,8 +114,21 @@ public class CommandMorpheus extends CommandBase {
     }
 
     @Override
-    public List addTabCompletionOptions(ICommandSender icommandsender, String[] astring) {
+    public List addTabCompletionOptions(ICommandSender icommandsender, String[] args) {
 
+    	if (args.length == 1)
+        {
+            return getListOfStringsMatchingLastWord(args, new String[]{"alerts", "disable", "percent", "status", "version"});
+        }
+        if (args[0].equalsIgnoreCase("disable"))
+        {
+            List options = new ArrayList();
+            for (Integer dimensionId : MorpheusRegistry.registry.keySet())
+            {
+                options.add(dimensionId.toString());
+            }
+            return getListOfStringsFromIterableMatchingLastWord(args, options);
+        }
         return null;
     }
 
