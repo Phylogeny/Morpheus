@@ -62,7 +62,7 @@ public class CommandMorpheus extends CommandBase {
                 sender.addChatMessage(new ChatComponentText(References.ALERTS_ON));
             }
         } else if (args[0].equalsIgnoreCase("disable")) {
-            if (args[1] != null) {
+            if (args.length > 1) {
                 int ageToDisable = parseInt(sender, args[1]);
                 if (MorpheusRegistry.registry.containsKey(ageToDisable)) {
                     Morpheus.register.unregisterHandler(ageToDisable);
@@ -93,7 +93,7 @@ public class CommandMorpheus extends CommandBase {
         else if (args[0].equalsIgnoreCase("version")) {
             sender.addChatMessage(new ChatComponentText("Morpheus version: " + References.VERSION));
         } else if (args[0].equalsIgnoreCase("percent")) {
-            if (args[1] != null) {
+            if (args.length > 1) {
                 int newPercent = parseInt(sender, args[1]);
                 if (newPercent > 0 && newPercent <= 100) {
                     Morpheus.perc = newPercent;
