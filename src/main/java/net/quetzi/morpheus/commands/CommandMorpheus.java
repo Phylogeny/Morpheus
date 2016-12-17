@@ -6,6 +6,7 @@ import net.minecraft.command.NumberInvalidException;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.quetzi.morpheus.Morpheus;
+import net.quetzi.morpheus.MorpheusRegistry;
 import net.quetzi.morpheus.helpers.References;
 
 import java.util.ArrayList;
@@ -90,8 +91,21 @@ public class CommandMorpheus extends CommandBase {
     }
 
     @Override
-    public List addTabCompletionOptions(ICommandSender icommandsender, String[] astring, BlockPos pos) {
+    public List addTabCompletionOptions(ICommandSender icommandsender, String[] args, BlockPos pos) {
 
+    	if (args.length == 1)
+        {
+            return getListOfStringsMatchingLastWord(args, new String[]{"alerts", "disable", "percent", "version"});
+        }
+        if (args[0].equalsIgnoreCase("disable"))
+        {
+            List options = new ArrayList();
+            for (Integer dimensionId : MorpheusRegistry.registry.keySet())
+            {
+                options.add(dimensionId.toString());
+            }
+            return getListOfStringsMatchingLastWord(args, options);
+        }
         return null;
     }
 
