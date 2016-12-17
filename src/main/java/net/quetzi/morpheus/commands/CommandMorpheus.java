@@ -121,7 +121,7 @@ public class CommandMorpheus extends CommandBase {
 
     	if (args.length == 1)
         {
-            return getListOfStringsMatchingLastWord(args, new String[]{"alerts", "disable", "percent", "status", "version"});
+            return getListOfStringsMatchingLastWord(args, new String[]{"alert", "disable", "percent", "status", "version"});
         }
         if (args[0].equalsIgnoreCase("disable"))
         {
