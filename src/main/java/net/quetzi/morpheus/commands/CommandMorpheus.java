@@ -5,6 +5,8 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.NumberInvalidException;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatStyle;
+import net.minecraft.util.EnumChatFormatting;
 import net.quetzi.morpheus.Morpheus;
 import net.quetzi.morpheus.MorpheusRegistry;
 import net.quetzi.morpheus.helpers.References;
@@ -65,7 +67,7 @@ public class CommandMorpheus extends CommandBase {
                     sender.addChatMessage(new ChatComponentText("Sleep vote checks are already disabled in dimension " + ageToDisable));
                 }
             } else {
-                sender.addChatMessage(new ChatComponentText(References.DISABLE_USAGE));
+                sender.addChatMessage(new ChatComponentText(References.DISABLE_USAGE).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
             }
         } else if (args[0].equalsIgnoreCase("version")) {
             sender.addChatMessage(new ChatComponentText("Morpheus version: " + References.VERSION));
@@ -80,6 +82,8 @@ public class CommandMorpheus extends CommandBase {
                 } else {
                     sender.addChatMessage(new ChatComponentText("Invalid percentage value, round numbers between 0 and 100 are acceptable."));
                 }
+            } else {
+                sender.addChatMessage(new ChatComponentText(References.PERCENT_USAGE).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
             }
         }
     }
