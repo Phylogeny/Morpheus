@@ -4,6 +4,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.WorldServer;
 import net.quetzi.morpheus.Morpheus;
@@ -71,7 +72,7 @@ public class CommandMorpheus extends CommandBase {
                     sender.addChatMessage(new ChatComponentText("Sleep voting was not enabled for dimension " + ageToDisable));
                 }
             } else {
-                sender.addChatMessage(new ChatComponentText(References.DISABLE_USAGE));
+                sender.addChatMessage(new ChatComponentText(References.DISABLE_USAGE).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
             }
         } else if (args[0].equalsIgnoreCase("status")) {
             for (WorldServer server : MinecraftServer.getServer().worldServers) {
@@ -103,6 +104,8 @@ public class CommandMorpheus extends CommandBase {
                 } else {
                     sender.addChatMessage(new ChatComponentText("Invalid percentage value, round numbers between 0 and 100 are acceptable."));
                 }
+            } else {
+                sender.addChatMessage(new ChatComponentText(References.PERCENT_USAGE).setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
             }
         }
     }
